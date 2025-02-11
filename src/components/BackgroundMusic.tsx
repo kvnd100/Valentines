@@ -1,29 +1,31 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    const audioElement = audioRef.current;
+    const handleFirstInteraction = () => {
+      if (audioRef.current) {
+        audioRef.current.play();
+        document.removeEventListener('click', handleFirstInteraction);
+        document.removeEventListener('touchstart', handleFirstInteraction);
+      }
+    };
 
-    if (audioElement) {
-      audioElement.play();
-    }
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
 
     return () => {
-      if (audioElement) {
-        audioElement.pause();
-      }
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
     };
   }, []);
 
   return (
-    <div>
-      <audio ref={audioRef} loop muted={false}>
-        <source src="/music/music.mp3" type="audio/mp3" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <audio ref={audioRef} loop>
+      <source src="/music/music.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
   );
 }
 

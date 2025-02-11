@@ -3,12 +3,13 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, Float, ContactShadows, OrbitControls, useGLTF } from '@react-three/drei'
 import { LayerMaterial, Depth, Noise, Color } from 'lamina'
 import { CurvedText } from './components/CurvedText'
+import BackgroundMusic from './components/BackgroundMusic'
 
 export default function App() {
   return (
     <>
     <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5] }}>
-      <OrbitControls enableZoom={false} autoRotate minPolarAngle={Math.PI / 1.8} maxPolarAngle={Math.PI / 1.8} />
+      <OrbitControls  enablePan={false}   enableZoom={false} autoRotate minPolarAngle={Math.PI / 1.8} maxPolarAngle={Math.PI / 1.8} />
       <pointLight position={[10, 10, 5]} />
       <pointLight position={[-10, -10, -5]} />
       <ambientLight intensity={0.4} />
@@ -64,6 +65,7 @@ export default function App() {
         </mesh>
       </Environment>
     </Canvas>
+    <BackgroundMusic/>
     </>
   )
 }
