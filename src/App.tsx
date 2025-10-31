@@ -173,12 +173,10 @@ export default function App() {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FlowerBouquet(props: any) {
-  const baseUrl = import.meta.env.BASE_URL
-  const modelPath = `${baseUrl}modals/scene.gltf`
-  const { scene } = useGLTF(modelPath)
+  const { scene } = useGLTF('/modals/scene.gltf')
   
   useEffect(() => {
-    useGLTF.preload(modelPath)
+    useGLTF.preload('/models/scene.gltf')
     if (props.onLoad) props.onLoad()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.onLoad])
